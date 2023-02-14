@@ -23,9 +23,9 @@ jobs:
         
         
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      run: docker build . --file Dockerfile --tag http-app:$(date +%s)
       
       
     - name: Docker Push
-      run: docker push ${{secrets.DOCKER_USER}}/go_7th_task:latest
+      run: docker push ${{secrets.DOCKER_USER}}/go_7th_task:http-app
         
