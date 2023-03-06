@@ -1,0 +1,30 @@
+---
+
+-  name: Install Htttp-server
+   hosts: virtual_servers
+   become: true 
+   tasks:
+
+   
+   -  name: Clone http-server from repo in git
+      ansible.builtin.git:
+         repo: https://github.com/coffee3333/Go-2nd-task.git
+         dest: /home/http-server
+         separate_git_dir: /home/http-server/clone.git
+         clone: yes
+         update: yes
+
+   -  name: Clone .service from cloned repo
+      command: mv /home/http-server/appgo.service /etc/systemd/system/
+
+   -  name: Reload system deamon
+      ansible.builtin.systemd:
+        daemon_reload: true
+   
+   -  name: Start and enable appgo service
+      ansible.builtin.service:
+        name: appgo
+        state: started
+        enabled: true
+
+
