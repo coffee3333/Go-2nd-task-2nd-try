@@ -1,0 +1,2 @@
+[virtual_servers]
+linuxHome ansible_host=127.0.0.1 ansible_user=coffee33 ansible_password=123 ansible_port=3022 ansible_sudo_pass=123
