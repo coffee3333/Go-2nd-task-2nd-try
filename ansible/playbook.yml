@@ -1,30 +1,30 @@
 ---
+- name: Pull and run Docker image
+  hosts: work_server
+  become: true
 
--  name: Install Htttp-server
-   hosts: virtual_servers
-   become: true 
-   tasks:
+  vars:
+    image_name: coffee3333/go_7th_task
+    image_tag: tagname
+    container_name: http-app_container
 
-   
-   -  name: Clone http-server from repo in git
-      ansible.builtin.git:
-         repo: https://github.com/coffee3333/Go-2nd-task.git
-         dest: /home/http-server
-         separate_git_dir: /home/http-server/clone.git
-         clone: yes
-         update: yes
+  tasks:
+    - name: Install python3-docker
+      become: true
+      apt:
+        update_cache: yes
+        state: latest
+        name: python3-docker
 
-   -  name: Clone .service from cloned repo
-      command: mv /home/http-server/appgo.service /etc/systemd/system/
+    - name: Pull Docker image
+      community.general.docker_image:
+        name: "{{ image_name }}:{{ image_tag }}"
+        source: pull
 
-   -  name: Reload system deamon
-      ansible.builtin.systemd:
-        daemon_reload: true
-   
-   -  name: Start and enable appgo service
-      ansible.builtin.service:
-        name: appgo
+    - name: Run Docker container
+      community.general.docker_container:
+        name: "{{ container_name }}"
+        image: "{{ image_name }}:{{ image_tag }}"
         state: started
-        enabled: true
-
-
+        ports:
+          - "8080:8080"
