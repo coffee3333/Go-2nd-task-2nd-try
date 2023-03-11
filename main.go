@@ -7,7 +7,7 @@ import (
 )
 
 func mainPage(w http.ResponseWriter, r *http.Request) { //func for main page
-	fmt.Fprintf(w, "Changes for checking CI/CD pipeline")
+	fmt.Fprintf(w, "NEW Changes for checking CI/CD pipeline")
 }
 
 func routes() {
