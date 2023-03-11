@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Docker Image CI/CD 
 
 on:
   push:
@@ -34,3 +34,26 @@ jobs:
         platforms: linux/amd64,linux/arm64
         push: true
         tags: coffee3333/go_7th_task:tagname
+        
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+      
+    - name: Install dependencies
+      run: pip install ansible
+      
+    - name: Run Ansible playbook
+      env: 
+         HOST: ${{ secrets.ANSIBLE_HOST }}
+         PSW: ${{ secrets.ANSIBLE_PSW }}
+      run: ANSIBLE_HOST_KEY_CHECKING=false ansible-playbook -i ansible/inventory.ini --extra-vars "ansible_host=$HOST ansible_password=$PSW host_key_checking = False" ansible/playbook.yml 
+        
