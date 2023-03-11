@@ -1,6 +1,6 @@
 ---
 - name: Pull and run Docker image
-  hosts: work_server
+  hosts: all
   become: true
 
   vars:
