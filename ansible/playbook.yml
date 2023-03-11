@@ -1,6 +1,6 @@
 ---
 - name: Pull and run Docker image
-  hosts: all
+  hosts: linode_server
   become: true
 
   vars:
