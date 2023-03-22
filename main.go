@@ -31,8 +31,8 @@ func routes() {
 }
 
 func handleFunc() {
-	routes()                               //as you know, we can have many routes, i deceided to make func for this
-	err := http.ListenAndServe(":80", nil) // configuring the port
+	routes()                                 //as you know, we can have many routes, i deceided to make func for this
+	err := http.ListenAndServe(":8080", nil) // configuring the port
 	log.Println("Server is running!")
 	if err != nil { //excepting errors
 		log.Fatal("ListenAndServe: ", err)
