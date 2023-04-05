@@ -16,6 +16,9 @@ func mainPage(w http.ResponseWriter, r *http.Request) { //func for main page
 }
 
 func hello(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE, PATCH")
+	w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
 	var n Name
 	err := json.NewDecoder(r.Body).Decode(&n)
 	if err != nil {
