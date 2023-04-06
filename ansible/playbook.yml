@@ -16,17 +16,15 @@
         state: latest
         name: python3-docker
 
-    - name: stop all docker containers
-      shell: docker stop $(docker ps -a -q)
-      ignore_errors: true
+    - name: Get docker Info
+      docker_host_info:
+        containers: yes
+      register: docker_info
 
-    - name: remove all docker containers
-      shell: docker rm $(docker ps -a -q)
-      ignore_errors: true
-
-    - name: remove all docker images
-      shell: docker rmi $(docker images -q)
-      ignore_errors: true
+    - name: Stop the container running on port 8080
+      docker_container:
+        name: "{{ docker_info | dict2items | json_query('[?key==`containers`].value[] | [?Ports[?PublicPort==`8080`]] | [0].Id') }}"
+        state: absent
 
     - name: Pull Docker image
       community.general.docker_image:
