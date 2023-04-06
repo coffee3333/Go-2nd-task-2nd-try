@@ -48,8 +48,11 @@ jobs:
       with:
         python-version: '3.x'
       
-    - name: Install dependencies
+    - name: Install ansible
       run: pip install ansible
+
+    - name: Install jmespath 
+      run: pip install jmespath 
       
     - name: Run Ansible playbook
       env: 
