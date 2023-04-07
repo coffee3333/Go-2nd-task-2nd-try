@@ -12,7 +12,7 @@ type Name struct {
 }
 
 func mainPage(w http.ResponseWriter, r *http.Request) { //func for main page
-	fmt.Fprintf(w, "NEW Changes for checking CI/CD pipeline")
+	fmt.Fprintf(w, "Chceck CI/CD")
 }
 
 func hello(w http.ResponseWriter, r *http.Request) {
